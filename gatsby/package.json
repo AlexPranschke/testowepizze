@@ -25,7 +25,7 @@
   "dependencies": {
     "babel-plugin-styled-components": "^1.11.1",
     "dotenv": "^8.2.0",
-    "gatsby": "^2.32.13",
+    "gatsby": "^2.24.63",
     "gatsby-image": "^2.4.17",
     "gatsby-plugin-react-helmet": "^3.3.10",
     "gatsby-plugin-styled-components": "^3.3.10",
@@ -33,14 +33,7 @@
     "isomorphic-fetch": "^2.2.1",
     "netlify-cli": "^2.62.0",
     "netlify-lambda": "^2.0.1",
-<<<<<<< HEAD
-    "node-fetch": "^2.6.1",
-=======
-    "node-fetch": "^2.7.0",
->>>>>>> faa2cdc4561947a75ed77b439fa2a0c55e998809
-    "nodemailer": "^6.9.12",
     "normalize.css": "^8.0.1",
-    "nvm": "^0.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
@@ -52,7 +45,7 @@
     "eslint": "^7.8.1",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^6.11.0",
-    "eslint-config-wesbos": "^1.0.1",
+    "eslint-config-wesbos": "1.0.0",
     "eslint-plugin-html": "^6.1.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
