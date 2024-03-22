@@ -53,7 +53,7 @@ exports.handler = async (event, context) => {
       return {
         statusCode: 400,
         body: JSON.stringify({
-          message: `Oops! You are missing the ${field} field`,
+          message: `<<Missing the ${field} field`,
         }),
       };
     }
@@ -64,7 +64,7 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 400,
       body: JSON.stringify({
-        message: `Why would you order nothing?!`,
+        message: `No order?!`,
       }),
     };
   }
