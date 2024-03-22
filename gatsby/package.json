@@ -33,7 +33,11 @@
     "isomorphic-fetch": "^2.2.1",
     "netlify-cli": "^2.62.0",
     "netlify-lambda": "^2.0.1",
+<<<<<<< HEAD
     "node-fetch": "^2.6.1",
+=======
+    "node-fetch": "^2.7.0",
+>>>>>>> faa2cdc4561947a75ed77b439fa2a0c55e998809
     "nodemailer": "^6.9.12",
     "normalize.css": "^8.0.1",
     "nvm": "^0.0.4",
