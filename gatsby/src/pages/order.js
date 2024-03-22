@@ -102,7 +102,7 @@ export default function OrderPage({ data }) {
           </h3>
           <div>{error ? <p>Error: {error}</p> : ''}</div>
           <button type="submit" disabled={loading}>
-            {loading ? 'Loading...' : 'Order now'}
+            {loading ? 'Loading...' : 'Order Ahead  te'}
           </button>
         </fieldset>
       </OrderStyles>

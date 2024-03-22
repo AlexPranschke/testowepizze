@@ -2,27 +2,28 @@ const nodemailer = require('nodemailer');
 
 function generateOrderEmail({ order, total }) {
   return `<div>
-    <h2>Your Recent Order for $${total}</h2>
+    <h2>Your Recent Order for ${total}</h2>
     <p>Please start walking over, we will have your order ready in the next 20 mins.</p>
     <ul>
       ${order
         .map(
           (item) => `<li>
-          <img src="${item.thumbnail}" alt="${item.name}"/>
-          ${item.size} ${item.name} - $${item.price}
-        </li>`
+        <img src="${item.thumbnail}" alt="${item.name}"/>
+        ${item.size} ${item.name} - ${item.price}
+      </li>`
         )
         .join('')}
     </ul>
-    <p>Your total is <strong>$${total}</strong></p>
+    <p>Your total is <strong>$${total}</strong> due at pickup</p>
     <style>
-      ul {
-        list-style: none;
-      }
+        ul {
+          list-style: none;
+        }
     </style>
   </div>`;
 }
 
+// create a transport for nodemailer
 const transporter = nodemailer.createTransport({
   host: process.env.MAIL_HOST,
   port: 587,
@@ -39,24 +40,12 @@ function wait(ms = 0) {
 }
 
 exports.handler = async (event, context) => {
-  console.log('Received event:', event);
+  console.log('Received event:'); // Dodajemy ten log
+  const body = JSON.parse(event.body);
+  console.log('Parsed body:', body); // Dodajemy ten log
 
-  let body;
-  try {
-    body = JSON.parse(event.body);
-  } catch (error) {
-    console.error('Error parsing JSON:', error);
-    return {
-      statusCode: 400,
-      body: JSON.stringify({
-        message: 'Invalid JSON format in request body',
-      }),
-    };
-  }
-
-  console.log('Parsed body:', body);
-
-  const requiredFields = ['email', 'name', 'order', 'total'];
+  // Validate the data coming in is correct
+  const requiredFields = ['email', 'name', 'order'];
 
   for (const field of requiredFields) {
     console.log(`Checking that ${field} is good`);
@@ -70,6 +59,7 @@ exports.handler = async (event, context) => {
     }
   }
 
+  // make sure they actually have items in that order
   if (!body.order.length) {
     return {
       statusCode: 400,
@@ -79,23 +69,16 @@ exports.handler = async (event, context) => {
     };
   }
 
-  try {
-    const info = await transporter.sendMail({
-      from: "Slick's Slices <slick@example.com>",
-      to: `${body.name} <${body.email}>, orders@example.com`,
-      subject: 'New order!',
-      html: generateOrderEmail({ order: body.order, total: body.total }),
-    });
-    console.log(info);
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ message: 'Success' }),
-    };
-  } catch (error) {
-    console.error('Error sending email:', error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ message: 'Internal Server Error' }),
-    };
-  }
+  // send the email
+  const info = await transporter.sendMail({
+    from: "Slick's Slices <slick@example.com>",
+    to: `${body.name} <${body.email}>, orders@example.com`,
+    subject: 'New order!',
+    html: generateOrderEmail({ order: body.order, total: body.total }),
+  });
+  console.log(info);
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ message: 'Success' }),
+  };
 };
